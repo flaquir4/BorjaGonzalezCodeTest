@@ -65,6 +65,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    kotlinOptions{
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -73,6 +76,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktx_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "com.google.android.material:material:$material_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$andoid_test_Version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
