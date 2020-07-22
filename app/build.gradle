@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'io.gitlab.arturbosch.detekt'
 apply plugin: 'jacoco'
+apply plugin: 'shot'
 
 jacoco {
     toolVersion = jacoco_version
@@ -53,7 +54,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.karumi.shot.ShotTestRunner"
     }
 
     buildTypes {
@@ -81,6 +82,7 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$andoid_test_Version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$canary_leak_version"
 }
