@@ -3,4 +3,6 @@
     <string name="email">Email</string>
     <string name="Password">Password</string>
     <string name="log_in">Log In</string>
+    <string name="success">Congratulations you are logged in!!</string>
+    <string name="log_out">Log Out</string>
 </resources>
