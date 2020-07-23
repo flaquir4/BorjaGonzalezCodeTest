@@ -2,8 +2,7 @@ package com.flaquir4.codetest
 
 import android.content.pm.ActivityInfo
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import com.flaquir4.codetest.presentation.LoginActivity
-import com.flaquir4.codetest.presentation.MainActivity
+import com.flaquir4.codetest.presentation.login.LoginActivity
 import com.karumi.shot.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test

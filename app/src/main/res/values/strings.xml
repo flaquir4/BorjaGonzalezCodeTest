@@ -5,4 +5,6 @@
     <string name="log_in">Log In</string>
     <string name="success">Congratulations you are logged in!!</string>
     <string name="log_out">Log Out</string>
+    <string name="login_error">Wrong credentials, please try again</string>
+    <string name="network_error">We are experiencing connectivity issues, please try again later.</string>
 </resources>
