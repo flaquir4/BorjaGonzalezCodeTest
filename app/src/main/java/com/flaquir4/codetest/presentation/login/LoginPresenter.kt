@@ -15,7 +15,9 @@ class LoginPresenter @Inject constructor(
 
     fun onLogInButtonTap(username: String, password: String) {
         launch {
+            view.showLoading()
             val result = loginUseCase(username, password)
+            view.hideLoading()
             result.success {
                 view.navigateToMainScreen()
             }

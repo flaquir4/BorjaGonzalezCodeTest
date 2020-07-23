@@ -1,12 +1,14 @@
 package com.flaquir4.codetest.presentation.login
 
 import android.os.Bundle
+import android.view.View
 import com.flaquir4.codetest.R
 import com.flaquir4.codetest.presentation.MainActivity
 import com.flaquir4.codetest.presentation.base.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.loading.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,6 +40,14 @@ class LoginActivity : BaseActivity(), LoginView {
 
     private fun showError(text: String) =
         Snackbar.make(container, text, Snackbar.LENGTH_LONG).show()
+
+    override fun showLoading() {
+        loading?.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        loading?.visibility = View.GONE
+    }
 
     override fun onDestroy() {
         super.onDestroy()

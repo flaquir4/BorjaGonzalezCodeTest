@@ -4,4 +4,6 @@ interface LoginView {
     fun navigateToMainScreen()
     fun showRetryOption()
     fun showBadCredentialsError()
+    fun showLoading()
+    fun hideLoading()
 }
