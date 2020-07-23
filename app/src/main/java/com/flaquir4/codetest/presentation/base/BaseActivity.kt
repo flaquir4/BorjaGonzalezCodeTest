@@ -19,7 +19,10 @@ open class BaseActivity : AppCompatActivity() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 			setUiVisibility()
 			container?.addSystemWindowInsetToPadding(top = true)
-			window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+			var flags: Int = window.decorView.systemUiVisibility
+			flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+			window.decorView.systemUiVisibility = flags
 		}
 	}
 
