@@ -82,7 +82,7 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$andoid_test_Version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:3.0.2'
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espresso_version"
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$canary_leak_version"
 }
