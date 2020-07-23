@@ -8,42 +8,43 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import kotlinx.android.synthetic.main.activity_login.*
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setUiVisibility()
-        container?.addSystemWindowInsetToPadding(top = true)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-        };
-    }
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
 
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+			setUiVisibility()
+			container?.addSystemWindowInsetToPadding(top = true)
+			window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+		}
+	}
 
-    private fun setUiVisibility() {
-        window.decorView.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-    }
+	private fun setUiVisibility() {
+		window.decorView.systemUiVisibility =
+			View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+			View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+			View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+	}
 
-    private fun View.addSystemWindowInsetToPadding(
-        left: Boolean = false,
-        top: Boolean = true,
-        right: Boolean = false,
-        bottom: Boolean = false
-    ) {
-        val (initialLeft, initialTop, initialRight, initialBottom) =
-            listOf(paddingLeft, paddingTop, paddingRight, paddingBottom)
+	private fun View.addSystemWindowInsetToPadding(
+	    left: Boolean = false,
+	    top: Boolean = true,
+	    right: Boolean = false,
+	    bottom: Boolean = false
+	) {
+		val (initialLeft, initialTop, initialRight, initialBottom) =
+			listOf(paddingLeft, paddingTop, paddingRight, paddingBottom)
 
-        ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
-            view.updatePadding(
-                left = initialLeft + (if (left) insets.systemWindowInsetLeft else 0),
-                top = initialTop + (if (top) insets.systemWindowInsetTop else 0),
-                right = initialRight + (if (right) insets.systemWindowInsetRight else 0),
-                bottom = initialBottom + (if (bottom) insets.systemWindowInsetBottom else 0)
-            )
+		ViewCompat.setOnApplyWindowInsetsListener(this) { view, insets ->
+			view.updatePadding(
+				left = initialLeft + (if (left) insets.systemWindowInsetLeft else 0),
+				top = initialTop + (if (top) insets.systemWindowInsetTop else 0),
+				right = initialRight + (if (right) insets.systemWindowInsetRight else 0),
+				bottom = initialBottom + (if (bottom) insets.systemWindowInsetBottom else 0)
+			)
 
-            insets
-        }
-    }
-
+			insets
+		}
+	}
 }
