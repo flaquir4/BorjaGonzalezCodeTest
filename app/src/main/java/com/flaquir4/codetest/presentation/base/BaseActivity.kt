@@ -12,7 +12,10 @@ open class BaseActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		addGestureNavigationSupport()
+	}
 
+	private fun addGestureNavigationSupport() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
 			setUiVisibility()
 			container?.addSystemWindowInsetToPadding(top = true)
