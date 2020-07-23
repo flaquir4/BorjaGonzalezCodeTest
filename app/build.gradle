@@ -88,9 +88,9 @@ dependencies {
 }
 
 detekt {
+    autoCorrect = true
     failFast = true
     buildUponDefaultConfig = true
-    autoCorrect = true
     reports {
         html.enabled = true
         xml.enabled = true
