@@ -30,8 +30,9 @@ jobs:
       - name: Run instrumentation tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
-          script: ./gradlew connectedCheck --stacktrace
+          api-level: 28
+          profile: pixel_2_xl
+          script: ./gradlew executeScreenshotTests -PprintBase64 --stacktrace
       - name: Code coverage
         run: bash ./gradlew jacocoTestReport --stacktrace
       - uses: codecov/codecov-action@v1
