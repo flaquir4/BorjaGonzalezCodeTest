@@ -1,7 +1,7 @@
 package com.flaquir4.codetest.presentation.login
 
 import com.flaquir4.codetest.domain.LoginUseCase
-import com.flaquir4.codetest.domain.errors.AuthenticationErrors
+import com.flaquir4.codetest.domain.errors.AuthenticationError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -23,8 +23,8 @@ class LoginPresenter @Inject constructor(
             }
             result.failure { error ->
                 when (error) {
-                    is AuthenticationErrors.NetworkError -> view.showRetryOption()
-                    is AuthenticationErrors.BadCredentials -> view.showBadCredentialsError()
+                    is AuthenticationError.NetworkError -> view.showRetryOption()
+                    is AuthenticationError.BadCredentials -> view.showBadCredentialsError()
                 }
             }
         }

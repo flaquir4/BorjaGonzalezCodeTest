@@ -3,7 +3,7 @@ package com.flaquir4.codetest
 import cat.helm.result.asFailure
 import cat.helm.result.asSuccess
 import com.flaquir4.codetest.domain.LoginUseCase
-import com.flaquir4.codetest.domain.errors.AuthenticationErrors
+import com.flaquir4.codetest.domain.errors.AuthenticationError
 import com.flaquir4.codetest.presentation.login.LoginPresenter
 import com.flaquir4.codetest.presentation.login.LoginView
 import io.mockk.coEvery
@@ -72,7 +72,7 @@ class LoginPresenterTest {
                 any(),
                 any()
             )
-        }.coAnswers { AuthenticationErrors.NetworkError.asFailure() }
+        }.coAnswers { AuthenticationError.NetworkError.asFailure() }
     }
 
     private fun givenLoginReturnsBadCredentialsError() {
@@ -81,7 +81,7 @@ class LoginPresenterTest {
                 any(),
                 any()
             )
-        }.coAnswers { AuthenticationErrors.BadCredentials.asFailure() }
+        }.coAnswers { AuthenticationError.BadCredentials.asFailure() }
     }
 
 }
