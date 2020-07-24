@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import cat.helm.result.asFailure
 import com.flaquir4.codetest.data.AuthenticationRepository
 import com.flaquir4.codetest.di.DataModule
-import com.flaquir4.codetest.domain.errors.AuthenticationErrors
+import com.flaquir4.codetest.domain.errors.AuthenticationError
 import com.flaquir4.codetest.presentation.login.LoginActivity
 import com.karumi.shot.ScreenshotTest
 import dagger.hilt.android.testing.BindValue
@@ -78,7 +78,7 @@ class LoginActivityTest : ScreenshotTest {
                 any(),
                 any()
             )
-        }.coAnswers { AuthenticationErrors.NetworkError.asFailure() }
+        }.coAnswers { AuthenticationError.NetworkError.asFailure() }
     }
 
     private fun givenLoginReturnsBadCredentialsError() {
@@ -87,6 +87,6 @@ class LoginActivityTest : ScreenshotTest {
                 any(),
                 any()
             )
-        }.coAnswers { AuthenticationErrors.BadCredentials.asFailure() }
+        }.coAnswers { AuthenticationError.BadCredentials.asFailure() }
     }
 }
