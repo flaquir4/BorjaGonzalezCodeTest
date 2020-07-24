@@ -26,4 +26,9 @@ class AuthenticationDataRepository @Inject constructor(
                     (it as AuthenticationError).asFailure()
                 }
             }
+
+    override suspend fun isUserLoggedIn(): Result<Boolean, AuthenticationError> =
+        authenticationDiskDataSource.getToken().map {
+            it.isNotEmpty()
+        }
 }

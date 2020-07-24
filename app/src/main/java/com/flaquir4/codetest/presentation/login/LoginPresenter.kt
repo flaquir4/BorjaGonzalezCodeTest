@@ -1,5 +1,6 @@
 package com.flaquir4.codetest.presentation.login
 
+import com.flaquir4.codetest.domain.IsUserLoggedIn
 import com.flaquir4.codetest.domain.LoginUseCase
 import com.flaquir4.codetest.domain.errors.AuthenticationError
 import kotlinx.coroutines.CoroutineScope
@@ -10,8 +11,20 @@ import javax.inject.Inject
 
 class LoginPresenter @Inject constructor(
     private val view: LoginView,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val isUserLoggedIn: IsUserLoggedIn
 ) : CoroutineScope by MainScope() {
+
+    fun onStart() {
+        launch {
+            val result = isUserLoggedIn()
+            result.success {
+                if (it) {
+                    view.navigateToMainScreen()
+                }
+            }
+        }
+    }
 
     fun onLogInButtonTap(username: String, password: String) {
         launch {

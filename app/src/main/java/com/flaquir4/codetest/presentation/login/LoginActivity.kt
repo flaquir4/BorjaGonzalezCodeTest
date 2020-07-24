@@ -18,8 +18,8 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter.onStart()
         setContentView(R.layout.activity_login)
-
         hookListeners()
     }
 
@@ -32,7 +32,9 @@ class LoginActivity : BaseActivity(), LoginView {
         }
     }
 
-    override fun navigateToMainScreen() = startActivity(MainActivity.getIntent(this))
+    override fun navigateToMainScreen() {
+        startActivity(MainActivity.getIntent(this))
+    }
 
     override fun showBadCredentialsError() = showError(getString(R.string.login_error))
 
@@ -52,5 +54,9 @@ class LoginActivity : BaseActivity(), LoginView {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        finishAfterTransition()
     }
 }

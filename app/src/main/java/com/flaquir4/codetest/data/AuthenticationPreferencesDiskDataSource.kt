@@ -9,13 +9,21 @@ import javax.inject.Inject
 
 class AuthenticationPreferencesDiskDataSource @Inject constructor(private val context: Application) :
     AuthenticationDiskDataSource {
+
+    private val preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
+
     override suspend fun saveToken(token: String): Result<Unit, AuthenticationError> = Result.of {
-        val preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-        preferences.edit {
+        preferences.edit(commit = true) {
             putString(TOKEN_KEY, token)
         }
     }.mapError {
         AuthenticationError.BadCredentials
+    }
+
+    override suspend fun getToken(): Result<String, AuthenticationError> = Result.of {
+        preferences.getString(TOKEN_KEY, "")
+    }.mapError {
+        AuthenticationError.DiskError
     }
 
     companion object {
