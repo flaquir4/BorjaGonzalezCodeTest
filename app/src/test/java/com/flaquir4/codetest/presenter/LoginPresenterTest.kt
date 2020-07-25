@@ -1,4 +1,4 @@
-package com.flaquir4.codetest
+package com.flaquir4.codetest.presenter
 
 import cat.helm.result.asFailure
 import cat.helm.result.asSuccess
@@ -38,10 +38,13 @@ class LoginPresenterTest {
     }
 
     @Test
-    fun `should navigate to login if login process is successful`() {
+    fun `should navigate to main screen if login process is successful`() {
         givenLoginIsSuccessful()
 
-        presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASSWORD)
+        presenter.onLogInButtonTap(
+            ANY_USERNAME,
+            ANY_PASSWORD
+        )
 
         coVerify(exactly = 1) { view.navigateToMainScreen() }
     }
@@ -50,7 +53,10 @@ class LoginPresenterTest {
     fun `should show retry option if login process returns network error`() {
         givenLoginReturnsNetworkError()
 
-        presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASSWORD)
+        presenter.onLogInButtonTap(
+            ANY_USERNAME,
+            ANY_PASSWORD
+        )
 
         coVerify(exactly = 1) { view.showRetryOption() }
     }
@@ -59,7 +65,10 @@ class LoginPresenterTest {
     fun `should show invalid credentials if login process returns invalid credentials`() {
         givenLoginReturnsBadCredentialsError()
 
-        presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASSWORD)
+        presenter.onLogInButtonTap(
+            ANY_USERNAME,
+            ANY_PASSWORD
+        )
 
         coVerify(exactly = 1) { view.showBadCredentialsError() }
     }
