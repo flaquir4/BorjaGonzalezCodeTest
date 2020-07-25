@@ -34,6 +34,17 @@ class AuthenticationPreferencesDiskDataSource @Inject constructor(private val co
             }
         }
 
+    override suspend fun deleteToken(): Result<Unit, AuthenticationError> =
+        withContext(Dispatchers.IO) {
+            Result.of {
+                preferences.edit(commit = true) {
+                    remove(TOKEN_KEY)
+                }
+            }.mapError {
+                AuthenticationError.DiskError
+            }
+        }
+
     companion object {
         const val PREFERENCES_NAME = "CodeTest"
         const val TOKEN_KEY = "token"

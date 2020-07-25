@@ -13,7 +13,7 @@ import cat.helm.result.asSuccess
 import com.flaquir4.codetest.data.AuthenticationRepository
 import com.flaquir4.codetest.di.DataModule
 import com.flaquir4.codetest.domain.errors.AuthenticationError
-import com.flaquir4.codetest.presentation.MainActivity
+import com.flaquir4.codetest.presentation.main.MainActivity
 import com.flaquir4.codetest.presentation.login.LoginActivity
 import com.karumi.shot.ScreenshotTest
 import dagger.hilt.android.testing.BindValue

@@ -1,9 +1,11 @@
 package com.flaquir4.codetest.presentation.login
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.flaquir4.codetest.R
-import com.flaquir4.codetest.presentation.MainActivity
+import com.flaquir4.codetest.presentation.main.MainActivity
 import com.flaquir4.codetest.presentation.base.BaseActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,6 +15,11 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), LoginView {
+
+    companion object {
+        fun getIntent(context: Context): Intent = Intent(context, LoginActivity::class.java)
+    }
+
     @Inject
     lateinit var presenter: LoginPresenter
 
@@ -34,6 +41,7 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun navigateToMainScreen() {
         startActivity(MainActivity.getIntent(this))
+        finish()
     }
 
     override fun showBadCredentialsError() = showError(getString(R.string.login_error))
@@ -54,9 +62,5 @@ class LoginActivity : BaseActivity(), LoginView {
     override fun onDestroy() {
         super.onDestroy()
         presenter.onDestroy()
-    }
-
-    override fun onBackPressed() {
-        finishAfterTransition()
     }
 }

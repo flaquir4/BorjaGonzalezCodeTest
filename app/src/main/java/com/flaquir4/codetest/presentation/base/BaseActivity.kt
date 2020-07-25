@@ -53,4 +53,8 @@ open class BaseActivity : AppCompatActivity() {
 			insets
 		}
 	}
+	override fun onBackPressed() {
+		// Remove when https://issuetracker.google.com/issues/139738913 fix is released.
+		finishAfterTransition()
+	}
 }
