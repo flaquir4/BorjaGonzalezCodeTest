@@ -1,4 +1,4 @@
-package com.flaquir4.codetest
+package com.flaquir4.codetest.repository
 
 import cat.helm.result.asFailure
 import cat.helm.result.asSuccess
