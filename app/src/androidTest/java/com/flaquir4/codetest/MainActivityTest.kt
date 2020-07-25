@@ -6,9 +6,11 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
+import cat.helm.result.asFailure
 import cat.helm.result.asSuccess
 import com.flaquir4.codetest.data.AuthenticationRepository
 import com.flaquir4.codetest.di.DataModule
+import com.flaquir4.codetest.domain.errors.AuthenticationError
 import com.flaquir4.codetest.presentation.login.LoginActivity
 import com.flaquir4.codetest.presentation.main.MainActivity
 import com.karumi.shot.ScreenshotTest
@@ -54,6 +56,17 @@ class MainActivityTest : ScreenshotTest {
         Intents.intended(IntentMatchers.hasComponent(LoginActivity::class.java.canonicalName))
     }
 
+    @Test
+    fun mainActivityShouldShowErrorIfLogoutFails(){
+        givenLogoutFails()
+
+        val mainActivity = activityRule.launchActivity(null)
+        Espresso.onView(ViewMatchers.withId(R.id.logoutButton)).perform(ViewActions.click())
+
+        compareScreenshot(mainActivity);
+    }
+
+
     private fun givenASuccessfulLogout() {
         coEvery { authenticationRepository.logout() }.coAnswers {
             Unit.asSuccess()
@@ -61,4 +74,9 @@ class MainActivityTest : ScreenshotTest {
         coEvery { authenticationRepository.isUserLoggedIn() }.coAnswers { false.asSuccess() }
     }
 
+    private fun givenLogoutFails() {
+        coEvery { authenticationRepository.logout() }.coAnswers {
+            AuthenticationError.DiskError.asFailure()
+        }
+    }
 }

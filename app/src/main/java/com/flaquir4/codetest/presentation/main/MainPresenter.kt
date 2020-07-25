@@ -16,6 +16,9 @@ class MainPresenter @Inject constructor(
             result.success {
                 view.navigateToLoginScreen()
             }
+            result.failure {
+                view.showLogoutError()
+            }
         }
    }
 }
