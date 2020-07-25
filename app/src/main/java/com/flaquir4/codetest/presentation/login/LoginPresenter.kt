@@ -3,8 +3,7 @@ package com.flaquir4.codetest.presentation.login
 import com.flaquir4.codetest.domain.IsUserLoggedIn
 import com.flaquir4.codetest.domain.LoginUseCase
 import com.flaquir4.codetest.domain.errors.AuthenticationError
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
+import com.flaquir4.codetest.presentation.base.CoroutinePresenter
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -13,7 +12,7 @@ class LoginPresenter @Inject constructor(
     private val view: LoginView,
     private val loginUseCase: LoginUseCase,
     private val isUserLoggedIn: IsUserLoggedIn
-) : CoroutineScope by MainScope() {
+) : CoroutinePresenter() {
 
     fun onStart() {
         launch {

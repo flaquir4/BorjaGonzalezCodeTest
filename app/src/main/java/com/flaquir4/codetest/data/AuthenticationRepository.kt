@@ -7,4 +7,5 @@ interface AuthenticationRepository {
 
     suspend fun login(username: String, password: String): Result<Unit, AuthenticationError>
     suspend fun isUserLoggedIn(): Result<Boolean, AuthenticationError>
+    suspend fun logout(): Result<Unit, AuthenticationError>
 }

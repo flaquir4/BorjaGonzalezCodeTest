@@ -7,4 +7,5 @@ interface AuthenticationDiskDataSource {
 
     suspend fun saveToken(token: String): Result<Unit, AuthenticationError>
     suspend fun getToken(): Result<String, AuthenticationError>
+    suspend fun deleteToken(): Result<Unit, AuthenticationError>
 }

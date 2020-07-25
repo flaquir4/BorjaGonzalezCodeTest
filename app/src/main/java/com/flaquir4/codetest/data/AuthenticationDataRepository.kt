@@ -31,4 +31,7 @@ class AuthenticationDataRepository @Inject constructor(
         authenticationDiskDataSource.getToken().map {
             it.isNotEmpty()
         }
+
+    override suspend fun logout(): Result<Unit, AuthenticationError> =
+        authenticationDiskDataSource.deleteToken()
 }
