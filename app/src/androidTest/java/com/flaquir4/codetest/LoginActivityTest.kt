@@ -3,6 +3,8 @@ package com.flaquir4.codetest
 import android.content.pm.ActivityInfo
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
@@ -13,8 +15,8 @@ import cat.helm.result.asSuccess
 import com.flaquir4.codetest.data.AuthenticationRepository
 import com.flaquir4.codetest.di.DataModule
 import com.flaquir4.codetest.domain.errors.AuthenticationError
-import com.flaquir4.codetest.presentation.main.MainActivity
 import com.flaquir4.codetest.presentation.login.LoginActivity
+import com.flaquir4.codetest.presentation.main.MainActivity
 import com.karumi.shot.ScreenshotTest
 import dagger.hilt.android.testing.BindValue
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -31,6 +33,11 @@ import org.junit.Test
 @HiltAndroidTest
 @UninstallModules(DataModule::class)
 class LoginActivityTest : ScreenshotTest {
+
+    companion object {
+        const val AN_EMAIL = "flaquir4@gmail.com"
+        const val A_PASSWORD= "12345678"
+    }
 
     @get:Rule
     var activityRule: ActivityTestRule<LoginActivity> =
@@ -78,6 +85,11 @@ class LoginActivityTest : ScreenshotTest {
         givenLoginReturnsNetworkError()
 
         val loginActivity = activityRule.launchActivity(null)
+        onView(ViewMatchers.withId(R.id.usernameEditText)).perform(typeText(AN_EMAIL))
+        onView(ViewMatchers.withId(R.id.passwordEditText)).perform(
+            typeText(A_PASSWORD),
+            closeSoftKeyboard()
+        )
         onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
 
         compareScreenshot(loginActivity);
@@ -89,6 +101,11 @@ class LoginActivityTest : ScreenshotTest {
         givenLoginReturnsBadCredentialsError()
 
         val loginActivity = activityRule.launchActivity(null)
+        onView(ViewMatchers.withId(R.id.usernameEditText)).perform(typeText(AN_EMAIL))
+        onView(ViewMatchers.withId(R.id.passwordEditText)).perform(
+            typeText(A_PASSWORD),
+            closeSoftKeyboard()
+        )
         onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
 
         compareScreenshot(loginActivity);
@@ -100,6 +117,11 @@ class LoginActivityTest : ScreenshotTest {
         givenASuccessfulLogin()
 
         activityRule.launchActivity(null)
+        onView(ViewMatchers.withId(R.id.usernameEditText)).perform(typeText(AN_EMAIL))
+        onView(ViewMatchers.withId(R.id.passwordEditText)).perform(
+            typeText(A_PASSWORD),
+            closeSoftKeyboard()
+        )
         onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
 
         intended(hasComponent(MainActivity::class.java.canonicalName))

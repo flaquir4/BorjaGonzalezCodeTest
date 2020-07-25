@@ -7,4 +7,8 @@
     <string name="log_out">Log Out</string>
     <string name="login_error">Wrong credentials, please try again</string>
     <string name="network_error">We are experiencing connectivity issues, please try again later.</string>
+    <string name="empty_password_error">Password should not be empty\n</string>
+    <string name="empty_email_error">Email should not be empty\n</string>
+    <string name="wrong_format_error">Email does not have a proper format</string>
+    <string name="short_password_error">Password should have at least 8 chars length</string>
 </resources>

@@ -7,6 +7,8 @@ import com.flaquir4.codetest.domain.LoginUseCase
 import com.flaquir4.codetest.domain.errors.AuthenticationError
 import com.flaquir4.codetest.presentation.login.LoginPresenter
 import com.flaquir4.codetest.presentation.login.LoginView
+import com.flaquir4.codetest.presentation.login.validator.LoginError
+import com.flaquir4.codetest.presentation.login.validator.LoginValidator
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -27,14 +29,15 @@ class LoginPresenterTest {
 
     var loginUseCase: LoginUseCase = mockk()
     var isUserLoggedIn: IsUserLoggedIn = mockk()
+    var validator: LoginValidator<LoginError> = mockk(relaxed = true)
 
-    lateinit var presenter: LoginPresenter
+    private lateinit var presenter: LoginPresenter
 
     @ExperimentalCoroutinesApi
     @Before
     fun setUp() {
         Dispatchers.setMain(Dispatchers.Unconfined)
-        presenter = LoginPresenter(view, loginUseCase, isUserLoggedIn)
+        presenter = LoginPresenter(view, loginUseCase, isUserLoggedIn, validator)
     }
 
     @Test
