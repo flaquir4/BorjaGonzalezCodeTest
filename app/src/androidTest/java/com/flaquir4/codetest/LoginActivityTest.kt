@@ -36,7 +36,9 @@ class LoginActivityTest : ScreenshotTest {
 
     companion object {
         const val AN_EMAIL = "flaquir4@gmail.com"
+        const val AN_INVALID_EMAIL = "flaquir4@.com"
         const val A_PASSWORD= "12345678"
+        const val AN_INVALID_PASSWORD= "1234567"
     }
 
     @get:Rule
@@ -134,6 +136,31 @@ class LoginActivityTest : ScreenshotTest {
         activityRule.launchActivity(null)
 
         intended(hasComponent(MainActivity::class.java.canonicalName))
+    }
+
+    @Test
+    fun loginActivityShowAllErrorsIfThereIsNothingInTextBoxes(){
+        givenThereIsNoToken()
+
+        val loginActivity = activityRule.launchActivity(null)
+        onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
+
+        compareScreenshot(loginActivity);
+    }
+
+    @Test
+    fun loginActivityShowsFormatErrorsIfInputIsInvalid(){
+        givenThereIsNoToken()
+
+        val loginActivity = activityRule.launchActivity(null)
+        onView(ViewMatchers.withId(R.id.usernameEditText)).perform(typeText(AN_INVALID_EMAIL))
+        onView(ViewMatchers.withId(R.id.passwordEditText)).perform(
+            typeText(AN_INVALID_PASSWORD),
+            closeSoftKeyboard()
+        )
+        onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
+
+        compareScreenshot(loginActivity);
     }
 
 

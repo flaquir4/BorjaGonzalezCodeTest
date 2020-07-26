@@ -7,6 +7,7 @@ import com.flaquir4.codetest.presentation.base.CoroutinePresenter
 import com.flaquir4.codetest.presentation.login.validator.LoginError
 import com.flaquir4.codetest.presentation.login.validator.LoginValidator
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,15 +37,17 @@ class LoginPresenter @Inject constructor(
                 view.hideLoading()
                 cancel()
             }
-            val result = loginUseCase(username, password)
-            view.hideLoading()
-            result.success {
-                view.navigateToMainScreen()
-            }
-            result.failure { error ->
-                when (error) {
-                    is AuthenticationError.NetworkError -> view.showRetryOption()
-                    is AuthenticationError.BadCredentials -> view.showBadCredentialsError()
+            if (isActive) {
+                val result = loginUseCase(username, password)
+                view.hideLoading()
+                result.success {
+                    view.navigateToMainScreen()
+                }
+                result.failure { error ->
+                    when (error) {
+                        is AuthenticationError.NetworkError -> view.showRetryOption()
+                        is AuthenticationError.BadCredentials -> view.showBadCredentialsError()
+                    }
                 }
             }
         }
