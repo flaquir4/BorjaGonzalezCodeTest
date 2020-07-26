@@ -9,9 +9,7 @@ import com.flaquir4.codetest.presentation.login.LoginPresenter
 import com.flaquir4.codetest.presentation.login.LoginView
 import com.flaquir4.codetest.presentation.login.validator.LoginError
 import com.flaquir4.codetest.presentation.login.validator.LoginValidator
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.setMain
@@ -95,6 +93,16 @@ class LoginPresenterTest {
 
     }
 
+    @Test
+    fun `should call handle errors if user input is invalid`(){
+        givenAnInvalidInput()
+
+        presenter.onLogInButtonTap(ANY_USERNAME, ANY_PASSWORD)
+
+        verify(exactly = 1) { view.handleFormErrors(any()) }
+        coVerify(exactly = 0) { loginUseCase(any(),any()) }
+    }
+
     private fun givenLoginIsSuccessful() {
         coEvery { loginUseCase(any(), any()) }.coAnswers { Unit.asSuccess() }
     }
@@ -123,6 +131,12 @@ class LoginPresenterTest {
 
     private fun setUserLoggedIn(boolean: Boolean) {
         coEvery { isUserLoggedIn() }.coAnswers { boolean.asSuccess() }
+    }
+
+    private fun givenAnInvalidInput(){
+        every { validator.validate(any(),any(), captureLambda()) } answers {
+            lambda<(List<LoginError>)->Unit>().invoke(listOf())
+        }
     }
 
 }
