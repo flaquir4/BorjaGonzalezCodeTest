@@ -30,6 +30,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/usernameEditText"
+            android:nextFocusDown="@id/passwordEditText"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -57,6 +61,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
