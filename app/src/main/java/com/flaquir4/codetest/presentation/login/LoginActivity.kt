@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import com.flaquir4.codetest.R
 import com.flaquir4.codetest.presentation.base.BaseActivity
@@ -34,11 +35,21 @@ class LoginActivity : BaseActivity(), LoginView {
 
     private fun hookListeners() {
         loginButton?.setOnClickListener {
-            val username = usernameInputLayout?.editText?.text.toString()
-            val password = passwordInputLayout?.editText?.text.toString()
-
-            presenter.onLogInButtonTap(username, password)
+            onLoginTap()
         }
+
+        passwordEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                onLoginTap()
+            }
+            false
+        }
+    }
+
+    private fun onLoginTap() {
+        val username = usernameInputLayout?.editText?.text.toString()
+        val password = passwordInputLayout?.editText?.text.toString()
+        presenter.onLogInButtonTap(username, password)
     }
 
     override fun navigateToMainScreen() {
